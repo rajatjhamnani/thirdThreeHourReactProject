@@ -1,8 +1,10 @@
-import react, { useState } from "react";
+import react, { useContext, useState } from "react";
 import Input from "./UI/input";
 import classes from "./InputDetails.module.css";
+import { DataContext } from "./Globe/DataContext";
 
 const InputDetails = (props) => {
+  const dataContxt = useContext(DataContext);
   const [medicineName, setMedicineNmae] = useState("");
   const [medicineDespriction, setMedicineDespriction] = useState("");
   const [price, setPrice] = useState("");
@@ -25,6 +27,7 @@ const InputDetails = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
     const data = {
+      id: Math.random().toString(),
       name: medicineName,
       description: medicineDespriction,
       price: price,
@@ -34,6 +37,7 @@ const InputDetails = (props) => {
     //   `https://crudcrud.com/api/5ee204dc8ded474c8cf4c1b61b04f529/AddedDetails`,
     //   data
     // );
+    dataContxt.receivedData(data);
     console.log(data);
     setMedicineNmae("");
     setMedicineDespriction("");

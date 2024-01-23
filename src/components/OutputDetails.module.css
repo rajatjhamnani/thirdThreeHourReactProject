@@ -1,0 +1,17 @@
+.tab {
+  background-color: antiquewhite;
+  text-align: center;
+  border: 2px solid black;
+  margin-left: 30%;
+}
+.tall th {
+  margin: 5px 5px;
+  border: 2px solid black;
+}
+.tall td {
+  margin: 5px 5px;
+  border: 2px solid black;
+}
+.tale {
+  text-align: center;
+}
