@@ -15,6 +15,7 @@ function App() {
       <DataContextProvider>
         <ModalContextProvider>
           <Cart />
+
           <Navbar />
           <InputDetails />
           <OutputDetails />

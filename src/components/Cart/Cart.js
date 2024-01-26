@@ -8,11 +8,11 @@ const Cart = (props) => {
   const modalContxt = useContext(ModalContext);
   const dataContxt = useContext(DataContext);
   console.log(dataContxt.dataForCart);
-  const data = [
-    { name: "dole", description: "good", price: "20", quantity: "100" },
-    { name: "calpol", description: "good", price: "10", quantity: "200" },
-    { name: "syrup", description: "cough", price: "200", quantity: "50" },
-  ];
+  // const data = [
+  //   { name: "dole", description: "good", price: "20", quantity: "100" },
+  //   { name: "calpol", description: "good", price: "10", quantity: "200" },
+  //   { name: "syrup", description: "cough", price: "200", quantity: "50" },
+  // ];
 
   return (
     <Modal show={modalContxt.show}>
@@ -24,6 +24,7 @@ const Cart = (props) => {
             <th>Quantity</th>
           </tr>
         </thead>
+
         {dataContxt.dataForCart.map((data, idx) => (
           <tbody>
             <tr className={classes.tall}>

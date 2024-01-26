@@ -7,13 +7,13 @@ const DataContextProvider = (props) => {
   const [cartData, setCartData] = useState([]);
   const [quantity, setQuantity] = useState(0);
 
-  const receivedDataHandler = (data) => {
-    console.log(data);
+  const receivedDataHandler = (data, qty) => {
+    console.log(data, qty);
 
     setData((previous) => [...previous, data]);
   };
 
-  const cartDataHandler = (data, qty) => {
+  const cartDataHandler = (data, qty, actualQuantity) => {
     let newData = {
       id: data.id,
       name: data.name,
@@ -21,6 +21,17 @@ const DataContextProvider = (props) => {
       quantity: qty,
     };
     console.log(data.quantity);
+
+    setData((previous) =>
+      previous.map((item) =>
+        item.id === data.id
+          ? {
+              ...item,
+              quantity: actualQuantity,
+            }
+          : item
+      )
+    );
 
     setQuantity((prev) => {
       return prev + Number(qty);

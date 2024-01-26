@@ -38,7 +38,7 @@ const InputDetails = (props) => {
     //   data
     // );
     dataContxt.receivedData(data);
-    console.log(data);
+    console.log("data", data);
     setMedicineNmae("");
     setMedicineDespriction("");
     setPrice("");

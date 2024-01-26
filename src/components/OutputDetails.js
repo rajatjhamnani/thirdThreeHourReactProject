@@ -6,10 +6,15 @@ import Input from "./UI/input";
 const OutPutDetails = (props) => {
   const dataContxt = useContext(DataContext);
 
-  const [addedQuantity, setAddedQuantity] = useState(0);
+  
+  const [addedQuantities, setAddedQuantities] = useState([]);
 
-  const addedDetailsHandler = (event) => {
-    setAddedQuantity(event.target.value);
+  const addedDetailsHandler = (event, idx) => {
+    
+    const newQuantities = [...addedQuantities];
+    newQuantities[idx] =
+      event.target.value === "" ? "" : Number(event.target.value);
+    setAddedQuantities(newQuantities);
   };
 
   return (
@@ -28,12 +33,12 @@ const OutPutDetails = (props) => {
             </tr>
           </thead>
           {dataContxt.data.map((data, idx) => (
-            <tbody>
+            <tbody key={idx}>
               <tr className={classes.tall}>
                 <td>{data.name}</td>
                 <td>{data.description}</td>
                 <td>{data.price}</td>
-                <td>{data.quantity}</td>
+                <td>{data.quantity - (addedQuantities[idx] || 0)}</td>
                 <Input
                   label="Add Qty"
                   input={{
@@ -42,20 +47,30 @@ const OutPutDetails = (props) => {
                     min: "0",
                     max: data.quantity,
                     step: "1",
-                    onChange: addedDetailsHandler,
-                    vavue: addedQuantity,
+                    onChange: (event) => addedDetailsHandler(event, idx),
+                    value: addedQuantities[idx] || 0,
                   }}
                 />
-
                 <td>
                   <button
                     type="submit"
-                    onClick={() =>
-                      dataContxt.receieveCartData(data, addedQuantity)
-                    }
+                    onClick={() => {
+                      const actualQuantity =
+                        data.quantity - (addedQuantities[idx] || 0);
+                      dataContxt.receieveCartData(
+                        data,
+                        addedQuantities[idx] || 0,
+                        actualQuantity
+                      );
+                      // Clear the "Add Qty" input field by updating its state to an empty string
+                      const newQuantities = [...addedQuantities];
+                      newQuantities[idx] = "";
+                      setAddedQuantities(newQuantities);
+                    }}
                   >
                     Add to Cart
                   </button>
+                  <button>Remove Item</button>
                 </td>
               </tr>
             </tbody>
